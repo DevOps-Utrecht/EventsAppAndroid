@@ -1,6 +1,6 @@
 package nl.rgroot.android.eventsandroid
 
-import android.arch.persistence.room.Room
+import android.arch.lifecycle.LiveData
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
@@ -8,14 +8,18 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_events.*
+import nl.rgroot.android.eventsandroid.models.Event
+import nl.rgroot.android.eventsandroid.database.AppDatabase
+import nl.rgroot.android.eventsandroid.views.BlankFragment
+import nl.rgroot.android.eventsandroid.views.EventFragment
+
+typealias LiveEventList = LiveData<List<Event>>
 
 class EventsActivity : FragmentActivity(),
     EventFragment.OnListFragmentInteractionListener,
     BlankFragment.OnFragmentInteractionListener
 {
-    companion object {
-        var db: AppDatabase? = null
-    }
+    var db: AppDatabase? = null
 
     // Fragments in this activity
     val eventsFragment: Fragment = EventFragment()
@@ -28,7 +32,7 @@ class EventsActivity : FragmentActivity(),
         super.onCreate(savedInstanceState)
 
         // Database init
-        db = Room.databaseBuilder(this, AppDatabase::class.java, "app_db").build()
+        db = AppDatabase.getDB(this)
 
         // Layout
         setContentView(R.layout.activity_events)

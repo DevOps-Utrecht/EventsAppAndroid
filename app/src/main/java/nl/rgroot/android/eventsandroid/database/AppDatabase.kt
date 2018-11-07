@@ -16,13 +16,18 @@ import java.util.*
     Event::class
 ], version = 1)
 @TypeConverters(DbConverter::class)
+
 abstract class AppDatabase : RoomDatabase() {
+    // Database Dao
     abstract fun eventSourceDao(): EventSourceDao
     abstract fun eventDao(): EventDao
 
     companion object {
         private var INSTANCE: AppDatabase? = null
 
+        /**
+         * Singleton database object
+         */
         fun getDB(context: Context): AppDatabase? {
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class) {
@@ -31,11 +36,12 @@ abstract class AppDatabase : RoomDatabase() {
                         AppDatabase::class.java,
                         "app.db"
                     )
+                        // Reconstuct DB by destroying DB (if no migrations).
                         .fallbackToDestructiveMigration()
                         .addCallback(object: Callback(){
                             override fun onOpen(db: SupportSQLiteDatabase) {
                                 super.onOpen(db)
-                                dbCallback(INSTANCE!!)
+                                dbOnOpenCallback(INSTANCE!!)
                             }
                         })
                         .build()
@@ -48,7 +54,12 @@ abstract class AppDatabase : RoomDatabase() {
             INSTANCE = null
         }
 
-        private fun dbCallback(db: AppDatabase){
+        /**
+         * Callback function on database open.
+         * Deletes all [Event] objects and inserts 1 new [Event].
+         * TODO Delete reseting the database?
+         */
+        private fun dbOnOpenCallback(db: AppDatabase){
             doAsync {
                 db.eventDao().run {
                     deleteAll()

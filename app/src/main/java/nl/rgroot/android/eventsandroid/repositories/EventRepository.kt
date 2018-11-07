@@ -9,12 +9,12 @@ import nl.rgroot.android.eventsandroid.database.AppDatabase
 import org.jetbrains.anko.doAsync
 
 class EventRepository(application: Application) {
-    val eventDao: EventDao
+    val eventDao : EventDao
     var allEvents: LiveEventList
 
     init {
         val db = AppDatabase.getDB(application)
-        eventDao = db!!.eventDao()
+        eventDao  = db!!.eventDao()
         allEvents = eventDao.getAllEvents()
     }
 

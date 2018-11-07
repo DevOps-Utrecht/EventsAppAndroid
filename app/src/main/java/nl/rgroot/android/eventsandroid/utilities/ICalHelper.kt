@@ -4,12 +4,14 @@ import biweekly.Biweekly
 import biweekly.ICalendar
 import java.net.URL
 
+/**
+ * Helper class that gets / parses / ... ical data.
+ */
 class ICalHelper {
     companion object {
         fun createFromUrl(url: String): ICalendar {
             val response = URL(url).readText()
-            val ical = Biweekly.parse(response).first()
-            return ical
+            return Biweekly.parse(response).first()
         }
     }
 }

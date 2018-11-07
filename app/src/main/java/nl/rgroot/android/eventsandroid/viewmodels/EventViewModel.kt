@@ -1,4 +1,4 @@
-package nl.rgroot.android.eventsandroid.view_models
+package nl.rgroot.android.eventsandroid.viewmodels
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
@@ -7,13 +7,8 @@ import nl.rgroot.android.eventsandroid.models.Event
 import nl.rgroot.android.eventsandroid.repositories.EventRepository
 
 class EventViewModel(application: Application) : AndroidViewModel(application) {
-    val repository: EventRepository
-    var allEvents: LiveEventList
-
-    init {
-        repository = EventRepository(application)
-        allEvents = repository.allEvents
-    }
+    private val repository: EventRepository = EventRepository(application)
+    var allEvents: LiveEventList            = repository.allEvents
 
     fun insert(event: Event) {
         repository.insert(event)

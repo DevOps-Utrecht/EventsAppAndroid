@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import nl.rgroot.android.eventsandroid.R
 import nl.rgroot.android.eventsandroid.adapters.EventRecyclerViewAdapter
 import nl.rgroot.android.eventsandroid.models.Event
-import nl.rgroot.android.eventsandroid.view_models.EventViewModel
+import nl.rgroot.android.eventsandroid.viewmodels.EventViewModel
 
 /**
  * A fragment representing a list of Items.
@@ -21,11 +21,8 @@ import nl.rgroot.android.eventsandroid.view_models.EventViewModel
  * [EventFragment.OnListFragmentInteractionListener] interface.
  */
 class EventFragment : Fragment() {
-
-    private var listener: OnListFragmentInteractionListener? = null
-
-    private lateinit var adapter: EventRecyclerViewAdapter
-
+    private var listener               : OnListFragmentInteractionListener? = null
+    private lateinit var adapter       : EventRecyclerViewAdapter
     private lateinit var eventViewModel: EventViewModel
 
     override fun onCreateView(

@@ -17,7 +17,7 @@ data class Event constructor(
     @ColumnInfo(name = "id")
     val id: Long,
 
-    // Non editable variables
+    // Non editable fields
     @ColumnInfo(name = "title")
     val title: String,
 
@@ -27,7 +27,7 @@ data class Event constructor(
     @ColumnInfo(name = "date")
     val date: Date
 
-    // Editable variables
+    // Editable fields
 ) : Parcelable {
     // Constructor to omit id being created
     @Ignore

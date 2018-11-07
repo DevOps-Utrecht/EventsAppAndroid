@@ -14,11 +14,11 @@ data class EventSource constructor(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
 
-    // Non editable
+    // Non editable fields
     @ColumnInfo(name = "url")
     val url: String,
 
-    // Editable
+    // Editable fields
     @ColumnInfo(name = "descr")
     var descr: String
 ) : Parcelable {

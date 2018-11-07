@@ -16,8 +16,8 @@ import nl.rgroot.android.eventsandroid.models.Event
  */
 class EventRecyclerViewAdapter(
     private val fragment_listener: OnListFragmentInteractionListener?,
-    private val inflater: LayoutInflater,
-    var events: List<Event>
+    private val inflater         : LayoutInflater,
+    var events                   : List<Event>
 ) : RecyclerView.Adapter<EventRecyclerViewAdapter.EventViewHolder>() {
 
     private val onClickListener: View.OnClickListener
@@ -27,10 +27,9 @@ class EventRecyclerViewAdapter(
 
     init {
         onClickListener = View.OnClickListener { v ->
-            val item = v.tag as Event
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            fragment_listener?.onListFragmentInteraction(item)
+            // Notify the active callbacks interface
+            val event = v.tag as Event
+            fragment_listener?.onListFragmentInteraction(event)
         }
     }
 
@@ -40,21 +39,24 @@ class EventRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val item = events[position]
-        holder.idView.text = item.title
-        holder.contentView.text = item.descr
+        val event               = events[position]
+        holder.idView.text      = event.title
+        holder.contentView.text = event.descr
 
-        with(holder.mView) {
-            tag = item
+        holder.view.run {
+            tag = event
             setOnClickListener(onClickListener)
         }
     }
 
     override fun getItemCount(): Int = events.size
 
-    inner class EventViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val idView: TextView = mView.item_number
-        val contentView: TextView = mView.content
+    /**
+     * [RecyclerView.ViewHolder] for the [EventRecyclerViewAdapter]. Couples the layout ids to properties.
+     */
+    inner class EventViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val idView: TextView      = view.item_number
+        val contentView: TextView = view.content
 
         override fun toString(): String {
             return super.toString() + " '" + contentView.text + "'"

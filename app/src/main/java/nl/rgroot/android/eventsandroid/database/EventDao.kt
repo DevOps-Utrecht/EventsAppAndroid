@@ -8,17 +8,17 @@ import nl.rgroot.android.eventsandroid.models.Event
 
 @Dao
 interface EventDao {
-    // Get functions
+    // Get
     @Query("SELECT * FROM Events")
     fun getAllEvents(): LiveEventList
 
-    // Insert functions
+    // Insert
     @Insert
     fun insert(event: Event)
 
-    // Update functions
+    // Update
 
-    // Delete functions
+    // Delete
     @Query("DELETE FROM Events")
     fun deleteAll()
 }

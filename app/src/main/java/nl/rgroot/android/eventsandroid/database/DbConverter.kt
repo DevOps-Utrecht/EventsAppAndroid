@@ -4,14 +4,17 @@ import android.arch.persistence.room.TypeConverter
 import java.util.*
 
 
+/**
+ * Converts types when communicating with the database automagically.
+ */
 class DbConverter {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
+    fun fromTimestampToLong(value: Long?): Date? {
         return if (value == null) null else Date(value)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
+    fun fromDateToTimestamp(date: Date?): Long? {
         return date?.time
     }
 }
